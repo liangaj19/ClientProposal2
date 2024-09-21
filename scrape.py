@@ -11,7 +11,7 @@ gallery_folder = "images/earlybird"
 # Open the CSV file and extract the data
 with open(csv_file, newline='', encoding='utf-8') as file:
     reader = csv.reader(file)
-    data = list(reader)
+    data = [row for row in reader]
 
 # Debug: Print data lines to validate correct reading
 for i, row in enumerate(data):
@@ -22,7 +22,7 @@ try:
     meet_name = data[0][0]
     meet_date = data[1][0]
     meet_link = data[2][0]
-    race_comments = data[3][0]
+    race_comments = ' '.join(data[3])  # Join all parts of the race comments
 
     # Debug: Print metadata to ensure correct extraction
     print(f"Meet Name: {meet_name}")
@@ -34,37 +34,35 @@ except IndexError as e:
     exit(1)
 
 # Find the starting indices of the team and individual results
-team_results_start = 5  # Line after metadata
-individual_results_start = None
+team_results_start = 5  # The line where team results start after the headers
 
-# Finding the start of individual results based on the second occurrence of "Place"
-place_occurrences = 0
+# Identify the line with the header for individual results
+individual_header_index = None
 for i in range(team_results_start, len(data)):
-    if len(data[i]) > 0 and data[i][0] == 'Place':
-        place_occurrences += 1
-        if place_occurrences == 2:
-            individual_results_start = i + 1
-            break
+    if data[i] == ['Place', 'Grade', 'Name', 'Athlete Link', 'Time', 'Team', 'Team Link', 'Profile Pic']:
+        individual_header_index = i
+        break
 
-# If individual results start index isn't found, raise an error
-if not individual_results_start:
-    print("Couldn't find the start of individual results in the CSV file.")
+# If individual results header line isn't found, raise an error
+if individual_header_index is None:
+    print("Couldn't find the header for individual results in the CSV file.")
     exit(1)
 
-# Debug: Print starting indices for team and individual results
-print(f"Team results start: {team_results_start}")
-print(f"Individual results start: {individual_results_start}")
+# Define the indices for team results and individual results
+team_results_end = individual_header_index - 1  # Account for the empty line
 
-# Read Team Results into DataFrame (skip the header row)
+# Read Team Results into DataFrame (skip the header row and filter any remaining empty rows)
 team_columns = ['Place', 'Team', 'Score']
-team_data = pd.DataFrame(data[team_results_start+2:individual_results_start-1], columns=team_columns)
+team_data = pd.DataFrame(data[team_results_start:team_results_end], columns=team_columns)
 
-# Read Individual Results into DataFrame
+# Read Individual Results into DataFrame (filter any remaining empty rows)
 individual_columns = ['Place', 'Grade', 'Name', 'Athlete Link', 'Time', 'Team', 'Team Link', 'Profile Pic']
-individual_data = pd.DataFrame(data[individual_results_start:], columns=individual_columns)
+individual_data = pd.DataFrame(data[individual_header_index+1:], columns=individual_columns)
 
 # Debug: Print DataFrames to validate correct slicing
+print("Team Data:")
 print(team_data.head())
+print("Individual Data:")
 print(individual_data.head())
 
 # Gather images for the gallery section
