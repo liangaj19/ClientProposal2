@@ -3,9 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Template</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#team_results">Team Results</a></li>
+                <li><a href="#individual_results">Individual Results</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+            </ul>
+        </nav>
+        <h1>{meet_name}</h1>
+
+        <a href="{meet_link}">{meet_link}</a>
+        <caption>
+            Results from {meet_date}
+        </caption>
+        <p>The Skyline team performed admirably at the 37th Early Bird Open, securing 7th place overall with a team score of 186. Notable individual performances include several athletes who achieved personal records (PRs). Matthew Guikema led the team with a time of 17:35.10, followed closely by Nicholas Yuan at 17:44.40. Zeke Lafferty, Jack Robichaud, and Gustaf Finn rounded out the top five for Skyline, contributing to the team's tight spread between runners. Other athletes who achieved PRs include Oskar MacArthur (18:37.50), Grayson Crooks (19:37.10), Juan Luis Llanes (19:48.00), and Paxton Alicandro (21:13.00). This race showcased the team's strong depth and improvement as they continue the season.</p>
+
+    </header>
+
+
+    <section id = "team_results">
+        <!-- Team info here -->
+        <table>
+            <tr>
+                <th>Place</th>   <th>Team</th>    <th>Score</th>
+            </tr>
+            <tr>
+                <td>{team_place}</td>    <td>{team_name}</td>    <td>{team_score}</td>
+            </tr>
+        </table>
+
+    </section>
+
+
+    <section id = "individual_results">
+        <div class="athlete">
+            <figure>
+                <img src="{ath_pic}" alt="images/athletes/profile_pic">
+                <figcaption><a href="{ath_link}">{ath_name}</a></figcaption>
+            </figure>
+            <span class="place">{ath_place}</span>
+            <span class="time">{ath_place}</span>
+            <span class="grade">{ath_place}</span>
+        </div>
+    </section>
+
+
+    <section id = "gallery">
+
+    </section>
+    <footer></footer>
 </body>
 </html>
