@@ -102,63 +102,66 @@ html_template = """
 <body>
     <header>
         <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#team_results">Team Results</a></li>
-                <li><a href="#individual_results">Individual Results</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-            </ul>
+            <a href="index.html">Home</a>
+            <a href="#team_results">Team Results</a>
+            <a href="#individual_results">Individual Results</a>
+            <a href="#gallery">Gallery</a>
         </nav>
         <h1>{{ meet_name }}</h1>
-        <a href="{{ meet_link }}">{{ meet_link }}</a>
-        <caption>Results from {{ meet_date }}</caption>
-        <p>{{ race_comments }}</p>
+        <a href="{{ meet_link }}">Results from {{ meet_date }}</a>
     </header>
 
-    <section id="team_results">
-        <h2>Team Results</h2>
-        <table>
-            <tr>
-                <th>Place</th><th>Team</th><th>Score</th>
-            </tr>
-            {% for index, row in team_data.iterrows() %}
-            <tr>
-                <td>{{ row.Place }}</td> <td>{{ row.Team }}</td> <td>{{ row.Score }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </section>
+    <main>
+        <section id="race_summary">
+            <h2>Race Summary</h2>
+            <p>{{ race_comments }}</p>
+        </section>
 
-    <section id="individual_results">
-        <h2>Individual Results</h2>
-        <table>
-            <tr>
-                <th>Place</th><th>Grade</th><th>Name</th><th>Time</th><th>Profile</th>
-            </tr>
-            {% for index, row in individual_data.iterrows() %}
-            <tr>
-                <td>{{ row.Place }}</td>
-                <td>{{ row.Grade }}</td>
-                <td><a href="{{ row['Athlete Link'] }}">{{ row.Name }}</a></td>
-                <td>{{ row.Time }}</td>
-                <td><img src="{{ row['Profile Pic'] }}" alt="Profile Picture" width="50"></td>
-            </tr>
-            {% endfor %}
-        </table>
-    </section>
+        <section id="team_results">
+            <h2>Team Results</h2>
+            <table>
+                <tr>
+                    <th>Place</th><th>Team</th><th>Score</th>
+                </tr>
+                {% for index, row in team_data.iterrows() %}
+                <tr>
+                    <td>{{ row.Place }}</td> <td>{{ row.Team }}</td> <td>{{ row.Score }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
 
-    <section id="gallery">
-        <h2>Gallery</h2>
-        <div class="gallery">
-            {% for image in gallery_images %}
-            <div class="gallery-item">
-                <img src="images/earlybird/{{ image }}" alt="{{ image }}">
+        <section id="individual_results">
+            <h2>Individual Results</h2>
+            <table>
+                <tr>
+                    <th>Place</th><th>Grade</th><th>Name</th><th>Time</th><th>Profile</th>
+                </tr>
+                {% for index, row in individual_data.iterrows() %}
+                <tr>
+                    <td>{{ row.Place }}</td>
+                    <td>{{ row.Grade }}</td>
+                    <td><a href="{{ row['Athlete Link'] }}">{{ row.Name }}</a></td>
+                    <td>{{ row.Time }}</td>
+                    <td><img src="{{ row['Profile Pic'] }}" alt="Profile Picture" width="50"></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
+
+        <section id="gallery">
+            <h2>Gallery</h2>
+            <div class="gallery">
+                {% for image in gallery_images %}
+                <div class="gallery-item">
+                    <img src="images/earlybird/{{ image }}" alt="{{ image }}">
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
-    </section>
+        </section>
 
-    <footer></footer>
+        <footer></footer>
+    </main>
 </body>
 </html>
 """
