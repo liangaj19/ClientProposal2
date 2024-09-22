@@ -82,22 +82,6 @@ html_template = """
     <title>{{ meet_name }}</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .gallery-item {
-            flex: 1 1 calc(20% - 10px);  /* Adjust the width to fit 4-5 images per row */
-            box-sizing: border-box;
-        }
-        .gallery-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-    </style>
 </head>
 <body>
     <header>
